@@ -1,6 +1,6 @@
 // routes/labs.js
 const express = require("express");
-const Lab = require("../models/Lab"); // Corrected import based on previous steps
+const Lab = require("../models/lab"); // Corrected import based on previous steps
 
 const router = express.Router();
 
@@ -60,6 +60,5 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
-
 
 module.exports = router;
