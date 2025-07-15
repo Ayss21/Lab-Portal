@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
-
 import ApiService from "../services/api.js";
 import { useAuth } from "../context/authcontext.jsx"; // Import useAuth
 import Toast from "../Components/common/toast.jsx"; // Import Toast component
@@ -17,7 +16,7 @@ import {
   PlusCircle,
   Edit,
   Trash2,
-  FlaskConical
+  FlaskConical,
 } from "lucide-react";
 
 const Labs = () => {
@@ -47,8 +46,10 @@ const Labs = () => {
         const lowerCaseSearchTerm = searchTerm.toLowerCase();
         const filtered = data.filter(
           (lab) =>
-            (lab.department && lab.department.toLowerCase().includes(lowerCaseSearchTerm)) ||
-            (lab["lab name"] && lab["lab name"].toLowerCase().includes(lowerCaseSearchTerm)) // Use lab['lab name']
+            (lab.department &&
+              lab.department.toLowerCase().includes(lowerCaseSearchTerm)) ||
+            (lab["lab name"] &&
+              lab["lab name"].toLowerCase().includes(lowerCaseSearchTerm)) // Use lab['lab name']
         );
         setFilteredLabs(filtered);
       } else {
@@ -80,8 +81,10 @@ const Labs = () => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const filtered = labs.filter(
       (lab) =>
-        (lab.department && lab.department.toLowerCase().includes(lowerCaseSearchTerm)) ||
-        (lab['lab name'] && lab['lab name'].toLowerCase().includes(lowerCaseSearchTerm))
+        (lab.department &&
+          lab.department.toLowerCase().includes(lowerCaseSearchTerm)) ||
+        (lab["lab name"] &&
+          lab["lab name"].toLowerCase().includes(lowerCaseSearchTerm))
     );
     setFilteredLabs(filtered);
   }, [labs, searchTerm]);
@@ -186,8 +189,9 @@ const Labs = () => {
     <div className="min-h-screen bg-gray-50 pt-38 font-inter overflow-y-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-red-800 mb-4">
-            {isAdmin() ? "Admin Laboratory Directory" : "Laboratory Directory"} {/* Call isAdmin() */}
+          <h1 className="text-4xl font-bold text-[#0d0567f5] mb-4">
+            {isAdmin() ? "Admin Laboratory Directory" : "Laboratory Directory"}{" "}
+            {/* Call isAdmin() */}
           </h1>
           <p className="text-xl text-gray-600">
             {isAdmin() // Call isAdmin()
@@ -215,23 +219,20 @@ const Labs = () => {
               {searchTerm && (
                 <button
                   onClick={clearSearch}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
                   <X className="w-5 h-5" />
                 </button>
               )}
             </div>
             <button
               onClick={handleSearch}
-              className="w-full sm:w-auto bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition-colors font-semibold text-lg shadow-md hover:shadow-lg"
-            >
+              className="w-full sm:w-auto bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition-colors font-semibold text-lg shadow-md hover:shadow-lg">
               Search
             </button>
-            {isAdmin() && ( 
+            {isAdmin() && (
               <button
                 onClick={handleAddLabClick}
-                className="w-full sm:w-auto bg-green-600 text-white px-8 py-4 rounded-xl hover:bg-green-700 transition-colors font-semibold text-lg shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-              >
+                className="w-full sm:w-auto bg-green-600 text-white px-8 py-4 rounded-xl hover:bg-green-700 transition-colors font-semibold text-lg shadow-md hover:shadow-lg flex items-center justify-center gap-2">
                 <PlusCircle className="w-5 h-5" /> Add New Lab
               </button>
             )}
@@ -250,8 +251,7 @@ const Labs = () => {
             <p>{error}</p>
             <button
               onClick={fetchLabs}
-              className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
-            >
+              className="mt-4 text-blue-600 hover:text-blue-700 font-medium">
               Retry Loading Labs
             </button>
           </div>
@@ -272,48 +272,43 @@ const Labs = () => {
               Academic Labs
             </h2>
 
-            {labsToDisplay.length === 0 &&
-              !searchTerm.trim() && (
-                <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg">
-                    No labs available at the moment.
-                  </p>
-                  {isAdmin() && ( 
-                    <button
-                      onClick={handleAddLabClick}
-                      className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors font-medium"
-                    >
-                      Add Your First Lab
-                    </button>
-                  )}
-                </div>
-              )}
-
-            {labsToDisplay.length === 0 &&
-              searchTerm.trim() && (
-                <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg">
-                    No labs found matching your search criteria.
-                  </p>
+            {labsToDisplay.length === 0 && !searchTerm.trim() && (
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">
+                  No labs available at the moment.
+                </p>
+                {isAdmin() && (
                   <button
-                    onClick={clearSearch}
-                    className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    Clear search to view all labs
+                    onClick={handleAddLabClick}
+                    className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors font-medium">
+                    Add Your First Lab
                   </button>
-                </div>
-              )}
+                )}
+              </div>
+            )}
+
+            {labsToDisplay.length === 0 && searchTerm.trim() && (
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">
+                  No labs found matching your search criteria.
+                </p>
+                <button
+                  onClick={clearSearch}
+                  className="mt-4 text-blue-600 hover:text-blue-700 font-medium">
+                  Clear search to view all labs
+                </button>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {labsToDisplay.map((lab) => (
                 <div
                   key={lab._id}
-                  className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow flex flex-col"
-                >
+                  className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow flex flex-col">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex-1">
                       <h3 className="text-[17px] font-semibold text-black-900 mb-2">
-                        {lab['lab name']}
+                        {lab["lab name"]}
                       </h3>
                       <div className="flex items-center gap-2 mb-2">
                         <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
@@ -322,26 +317,23 @@ const Labs = () => {
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
                             lab.status || "Unknown"
-                          )}`}
-                        >
+                          )}`}>
                           {lab.status || "Status N/A"}
                         </span>
                       </div>
                     </div>
-                    {isAdmin() && ( 
+                    {isAdmin() && (
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleEditLabClick(lab)}
                           className="p-2 rounded-full bg-yellow-100 text-yellow-700 hover:bg-yellow-200 transition-colors"
-                          title="Edit Lab"
-                        >
+                          title="Edit Lab">
                           <Edit className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDeleteLab(lab._id)}
                           className="p-2 rounded-full bg-red-100 text-red-700 hover:bg-red-200 transition-colors"
-                          title="Delete Lab"
-                        >
+                          title="Delete Lab">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -361,8 +353,7 @@ const Labs = () => {
 
                   <button
                     onClick={() => handleShowDetails(lab)}
-                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium mt-auto"
-                  >
+                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium mt-auto">
                     <Eye className="w-4 h-4" />
                     Show Details
                   </button>
