@@ -223,7 +223,6 @@ const SignIn = () => {
       const result = await login({ googleToken: response.credential });
 
       if (result.success) {
-        console.log("Google Sign-in successful:", result.user);
         setToastMessage({
           type: "success",
           message: "Google Sign-in successful! Redirecting...",

@@ -6,20 +6,10 @@ const router = express.Router();
 
 // Get all labs (accessible to anyone, including unauthenticated users)
 router.get("/", async (req, res) => {
-  console.log("Backend: /api/labs route hit.");
-  // Add this log to confirm 'Lab' is a valid Mongoose model
-  console.log("Backend: Type of Lab:", typeof Lab);
-  console.log("Backend: Lab model name:", Lab.modelName); // Should log 'Lab'
-  console.log(
-    "Backend: Lab collection name (from model):",
-    Lab.collection.name
-  ); // Should log 'Labsdb' if option B is working
-
+ 
   try {
     const labs = await Lab.find().sort({ createdAt: -1 });
-    console.log("Backend: Labs found (from DB):", labs); // Log the actual array received from MongoDB
-    console.log("Backend: Number of labs found:", labs.length); // Log the count
-
+   
     res.json(labs);
   } catch (error) {
     console.error("Backend Error fetching all labs:", error); // More specific log

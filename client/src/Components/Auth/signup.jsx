@@ -69,7 +69,6 @@ const SignUp = () => {
       }
 
       if (result.success) {
-        console.log("Registration successful:", result.user || result.admin);
         setToastMessage({ type: 'success', message: 'Signup successful, please sign in here.' });
         setLoading(false);
         setTimeout(() => {
